@@ -13,6 +13,7 @@ const userSchema = new Schema<IUser>(
       unique: true,
       trim: true
     },
+
     passwordHash: {
       type: String,
       required: true

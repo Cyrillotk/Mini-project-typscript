@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
-import authRoutes from "./routes/authRoutes";
-import taskRoutes from "./routes/taskRoutes";
+import authRoutes from "./modules/auth/auth.routes";
+import taskRoutes from "./modules/tasks/task.routes";
 import { errorHandler } from "./middleware/errorMiddleware";
 import { notFound } from "./middleware/notFoundMiddleware";
 dotenv.config();
@@ -24,6 +24,8 @@ app.use("/api/tasks", taskRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
+
+export default app;
 
 const PORT = process.env.PORT || 3000;
 
