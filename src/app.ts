@@ -11,10 +11,20 @@ import { notFound } from "./middleware/notFoundMiddleware";
 dotenv.config();
 
 const app = express();
-
-app.use(cors());
+// adding rate limit
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes) 
+  message:{
+  message: "Too many requests from this IP, please try again after 15 minutes" 
+  }
+});
+app.use(cors({
+  origin: "http://localhost:3000", // Allow requests from this origin
+}));
 //for next task securing the api
 app.use(helmet());  
+app.use(limiter); // Apply the rate limiting middleware to all requests 
 
 app.use(express.json());
 
