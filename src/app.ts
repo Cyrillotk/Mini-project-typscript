@@ -1,3 +1,6 @@
+import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit"; 
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
@@ -8,6 +11,10 @@ import { notFound } from "./middleware/notFoundMiddleware";
 dotenv.config();
 
 const app = express();
+
+app.use(cors());
+//for next task securing the api
+app.use(helmet());  
 
 app.use(express.json());
 
